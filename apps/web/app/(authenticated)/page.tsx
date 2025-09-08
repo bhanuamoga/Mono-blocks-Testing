@@ -1,13 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  const t = useTranslations('HomePage');
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div>
-        <Button>Click me {t('title')}</Button>
-      </div>
-    </div>
-  );
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/role-menu");
+  }
+
+  return <div>Public landing page here...</div>;
 }
