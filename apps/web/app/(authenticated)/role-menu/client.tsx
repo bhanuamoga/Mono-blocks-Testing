@@ -102,10 +102,10 @@ export default function ClientRoleMenu({
       </div>
       <Separator className="shadow" />
       <ul className="faded-bottom no-scrollbar grid gap-4 overflow-auto pb-16 pt-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredApps.map((page) => (
-          <Link href={page.page_link || ""} key={page.page_name}>
+        {filteredApps.map((page,idx) => (
+          <Link href={page.page_link || ""} key={`${page.page_name}-${idx}`}>
             <li
-              key={page.page_name}
+              // key={page.page_name}
               className="rounded-lg bg-card border p-4 hover:shadow-md"
               onClick={(e) => handlePageClick(page, e)}
             >

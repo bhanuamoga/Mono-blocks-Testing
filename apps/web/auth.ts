@@ -58,7 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        console.log("Login with User ID", credentials);
         if (!credentials?.email) return null;
 
         const { data: user } = await postgrest
@@ -68,7 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .eq("user_email", credentials.email as string)
           .single();
 
-        console.log("user", user);
         if (!user) return null;
 
         const userSessionDTO = getUserSessionDTO(user);
@@ -214,12 +212,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session({ session, token }) {
       return {
         ...session,
-        user: {          ...session.user,
+        user: {
+          ...session.user,
           ...(token.user as any),
           id: token.id as string,
           randomKey: token.randomKey,
         },
       };
+    },
+
+    redirect({ url, baseUrl }) {
+      // After login, redirect to /role-menu if the redirect URL is the base path
+      if (url === baseUrl || url === `${baseUrl}/`) {
+        return `${baseUrl}/role-menu`;
+      }
+      // Otherwise, allow the redirect if it is within the site
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 });
