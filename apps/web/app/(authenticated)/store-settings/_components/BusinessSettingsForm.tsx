@@ -29,7 +29,17 @@ export const BusinessSettingsForm: React.FC = () => {
         console.error("Error fetching business settings:", error);
         return;
       }
-      setSettings(data || {});
+    setSettings({
+  business_name: data?.business_name ?? "",
+  legal_business_name: data?.legal_business_name ?? "",
+  business_number: data?.business_number ?? "",
+  business_registration_no: data?.business_registration_no ?? "",
+  store_name: data?.store_name ?? "",
+  store_url: data?.store_url ?? "",
+  store_email: data?.store_email ?? "",
+  store_mobile: data?.store_mobile ?? "",
+});
+
       setIsLoading(false);
     }
     fetchSettings();

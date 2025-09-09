@@ -209,19 +209,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       };
     },
-    redirect({ url, baseUrl }) {
-  // If the user is coming from sign-in or the root, always send them to /role-menu
-  if (
-    url === baseUrl ||
-    url === `${baseUrl}/` ||
-    url.startsWith(`${baseUrl}/sign-in`)
-  ) {
-    return `${baseUrl}/role-menu`;
-  }
+//     redirect({ url, baseUrl }) {
+//   // If the user is coming from sign-in or the root, always send them to /role-menu
+//   if (
+//     url === baseUrl ||
+//     url === `${baseUrl}/` ||
+//     url.startsWith(`${baseUrl}/sign-in`)
+//   ) {
+//     return `${baseUrl}/role-menu`;
+//   }
 
-  // Otherwise, only allow redirects within the same domain
-  return url.startsWith(baseUrl) ? url : `${baseUrl}/role-menu`;
-}
+//   // Otherwise, only allow redirects within the same domain
+//   return url.startsWith(baseUrl) ? url : `${baseUrl}/role-menu`;
+// }
   },
   
 });

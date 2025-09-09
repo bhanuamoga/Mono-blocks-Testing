@@ -51,12 +51,12 @@ const formSchema = z
       .string()
       .min(1, { message: "Mobile number is required" })
       .regex(/^\+?[0-9]\d{9,14}$/, { message: "Invalid mobile number format" }), // Supports E.164 format (international numbers)
-    for_business_name: z
+    business_name: z
       .string()
-      .min(1, { message: "Business name is required" }),
-    for_business_number: z
+      .min(3, { message: "Business name is required" }),
+    business_number: z
       .string()
-      .min(1, { message: "Business number is required" })
+      .min(3, { message: "Business number is required" })
       .regex(/^\d+$/, { message: "Business number must be numeric" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -85,8 +85,8 @@ export default function SignUp() {
       password: "",
       confirmPassword: "",
       user_mobile: "",
-      for_business_name: "",
-      for_business_number: "",
+      business_name: "",
+      business_number: "",
     },
   });
 
@@ -242,10 +242,10 @@ export default function SignUp() {
               />
               <FormField
                 control={form.control}
-                name="for_business_name"
+                name="business_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="for_business_name">
+                    <FormLabel htmlFor="business_name">
                       Business Name
                     </FormLabel>
                     <FormControl>
@@ -261,10 +261,10 @@ export default function SignUp() {
               />
               <FormField
                 control={form.control}
-                name="for_business_number"
+                name="business_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="for_business_number">
+                    <FormLabel htmlFor="business_number">
                       Business Number
                     </FormLabel>
                     <FormControl>

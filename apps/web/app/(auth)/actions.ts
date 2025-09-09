@@ -6,6 +6,7 @@ import { signIn } from "@/auth";
 import { postgrest } from "@/lib/postgrest";
 import { saveUserLogs } from "@/utils/userLogs";
 
+// ---------------- SCHEMAS ----------------
 const authFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -19,11 +20,12 @@ const authRegisterFormSchema = z.object({
   first_name: z.string().min(1),
   last_name: z.string().min(1),
   user_mobile: z.string().optional(),
-  for_business_name: z.string().optional(),
-  for_business_number: z.string().optional(),
+  business_name: z.string().optional(),
+  business_number: z.string().optional(),
   store_name: z.string().optional(),
 });
 
+// ---------------- LOGIN ----------------
 export interface LoginActionState {
   status: "idle" | "in_progress" | "success" | "failed" | "invalid_data";
 }
@@ -33,11 +35,7 @@ export const login = async (
   formData: z.infer<typeof authFormSchema>
 ): Promise<LoginActionState> => {
   try {
-    const validatedData = authFormSchema.parse({
-      email: formData.email,
-      password: formData.password,
-      callbackUrl: formData.callbackUrl,
-    });
+    const validatedData = authFormSchema.parse(formData);
 
     const signInOptions: any = {
       email: validatedData.email,
@@ -45,7 +43,6 @@ export const login = async (
       redirect: false,
     };
 
-    // If there's a callback URL, include it in the sign-in options
     if (validatedData.callbackUrl) {
       signInOptions.redirectTo = validatedData.callbackUrl;
     }
@@ -56,16 +53,11 @@ export const login = async (
       status: "Login Success",
       description: "Login Success",
       event_type: "Login Success",
-      // user_ip_address: await IpAddress(),
-      // browser: getCurrentBrowser(),
-      // device: getUserOS(),
-      // geo_location: await getUserLocation(),
       http_method: "POST",
       response_payload: {
         email: validatedData.email,
         password: validatedData.password,
       },
-      // operating_system: getUserOS(),
       app_name: "Amoga Next Blocks",
     });
 
@@ -83,14 +75,15 @@ export const login = async (
   }
 };
 
+// ---------------- REGISTER ----------------
 export interface RegisterActionState {
   status:
-  | "idle"
-  | "in_progress"
-  | "success"
-  | "failed"
-  | "user_exists"
-  | "invalid_data";
+    | "idle"
+    | "in_progress"
+    | "success"
+    | "failed"
+    | "user_exists"
+    | "invalid_data";
   message?: string;
 }
 
@@ -99,41 +92,53 @@ export const register = async (
   formData: z.infer<typeof authRegisterFormSchema>
 ): Promise<RegisterActionState> => {
   try {
+    // ✅ Step 1: validate user input
     const validatedData = authRegisterFormSchema.parse(formData);
 
+    // ✅ Step 2: build DB payload (validation + DB fields)
+    const insertPayload = {
+      ...validatedData,
+      for_business_name: validatedData.business_name ?? null,
+      for_business_number: validatedData.business_number ?? null,
+      roles_json: ["growstoreassistant"], // default role
+    };
+
+    // ✅ Step 3: check if user exists
     const { data: user } = await postgrest
       .asAdmin()
       .from("user_catalog")
       .select("*")
       .eq("user_email", validatedData.user_email)
       .single();
+
     if (user) {
-      return { status: "user_exists" } as RegisterActionState;
-    } else {
-      const { error: insertError } = await postgrest
-        .asAdmin()
-        .from("user_catalog")
-        .insert(validatedData);
-
-      if (insertError) {
-        if (
-          insertError?.message &&
-          insertError?.message.includes("duplicate key") &&
-          insertError?.message.includes("user_mobile")
-        ) {
-          return { status: "failed", message: "Phone number already exists" };
-        }
-        return { status: "failed" };
-      }
-
-      await signIn("credentials", {
-        email: validatedData.user_email,
-        password: validatedData.password,
-        redirect: false,
-      });
-
-      return { status: "success" };
+      return { status: "user_exists" };
     }
+
+    // ✅ Step 4: insert into DB
+    const { error: insertError } = await postgrest
+      .asAdmin()
+      .from("user_catalog")
+      .insert(insertPayload);
+
+    if (insertError) {
+      if (
+        insertError?.message?.includes("duplicate key") &&
+        insertError?.message?.includes("user_mobile")
+      ) {
+        return { status: "failed", message: "Phone number already exists" };
+      }
+      return { status: "failed" };
+    }
+
+    // ✅ Step 5: auto login
+    await signIn("credentials", {
+      email: validatedData.user_email,
+      password: validatedData.password,
+      redirect: false,
+    });
+
+    return { status: "success" };
   } catch (error) {
     if (error instanceof z.ZodError) {
       return { status: "invalid_data" };
