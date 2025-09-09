@@ -67,13 +67,14 @@ export function ChatInput(props: {
       try {
         setAIModelLoading(true);
         const response = await getAISettingsData();
-
+       console.log("Active AI Models:", response);
         if (response.data) {
           const aiModels = response.data.api_connection_json;
 
           const filterActiveModels = aiModels.filter(
             (model: AISettings) => model.status === "active"
           );
+          //  console.log("Active AI Models:", filterActiveModels);
           setAIModels(filterActiveModels);
         }
       } catch (error) {

@@ -1156,7 +1156,7 @@ export function ChatWindow(props: {
                       <span>Settings</span>
                     </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  {/* <DropdownMenuItem>
                     <div
                       className="flex items-center gap-2 cursor-pointer"
                       onClick={() => signOut({ callbackUrl: "/chat-login" })}
@@ -1164,7 +1164,7 @@ export function ChatWindow(props: {
                       <LogOut className="w-5 h-5 text-muted-foreground" />
                       <span>Sign Out</span>
                     </div>
-                  </DropdownMenuItem>
+                  </DropdownMenuItem> */}
 
                 </DropdownMenuGroup>
               </DropdownMenuContent>

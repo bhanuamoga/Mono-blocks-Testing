@@ -10,7 +10,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/sign-in",
   },
   providers: [
-    // 🔑 Normal login
     Credentials({
       name: "Sign in",
       id: "credentials",
@@ -28,7 +27,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
 
         const { data: user } = await postgrest
           .asAdmin()
@@ -38,15 +39,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .eq("password", credentials.password as string)
           .single();
 
-        if (!user) return null;
+        if (!user) {
+          return null;
+        }
 
         const userSessionDTO = getUserSessionDTO(user);
         const allowedPaths = await getAllowedPaths(userSessionDTO);
-        return { ...userSessionDTO, allowedPaths };
+        return { ...userSessionDTO, allowedPaths: allowedPaths };
       },
     }),
-
-    // 📧 Existing email login
     Credentials({
       name: "Login with Email",
       id: "user-email",
@@ -58,7 +59,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        if (!credentials?.email) return null;
+        console.log("Login with User ID", credentials);
+        if (!credentials?.email) {
+          return null;
+        }
 
         const { data: user } = await postgrest
           .asAdmin()
@@ -67,57 +71,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .eq("user_email", credentials.email as string)
           .single();
 
-        if (!user) return null;
+        console.log("user", user);
+
+        if (!user) {
+          return null;
+        }
 
         const userSessionDTO = getUserSessionDTO(user);
         const allowedPaths = await getAllowedPaths(userSessionDTO);
-        return { ...userSessionDTO, allowedPaths };
-      },
-    }),
-
-    // 🔒 Chat login (new, uses same table)
-    Credentials({
-      id: "chat-credentials",
-      name: "Chat Login",
-      credentials: {
-        email: {
-          label: "Email",
-          type: "text",
-          placeholder: "Enter Email",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "Enter Password",
-        },
-      },
-      authorize: async (credentials) => {
-        if (!credentials?.email || !credentials.password) return null;
-
-        const { data: user } = await postgrest
-          .asAdmin()
-          .from("user_catalog")
-          .select("*")
-          .eq("user_email", credentials.email as string)
-          .eq("password", credentials.password as string)
-          .single();
-
-        if (!user) return null;
-
-        const userSessionDTO = getUserSessionDTO(user);
-        const allowedPaths = await getAllowedPaths(userSessionDTO);
-
-        // Flag this session for chat route protection
-        return { ...userSessionDTO, allowedPaths, chatAuth: true };
+        return { ...userSessionDTO, allowedPaths: allowedPaths };
       },
     }),
   ],
-
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const ignorePathsRegex =
         /^\/(api|_next\/static|_next\/image|favicon\.ico|sitemap\.xml|robots\.txt)/;
-      if (ignorePathsRegex.test(nextUrl.pathname)) return true;
+      if (ignorePathsRegex.test(nextUrl.pathname)) {
+        return true;
+      }
 
       // Shopify install/auth redirect
       if (
@@ -129,6 +101,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         for (const [key, value] of nextUrl.searchParams.entries()) {
           redirectUrl.searchParams.append(key, value);
         }
+        // Create a new Headers object with the cookies
         const headers = new Headers();
         headers.append(
           "Set-Cookie",
@@ -139,7 +112,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           `shopify_app_state.sig=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`
         );
         headers.set("Location", redirectUrl.toString());
-        return new Response(null, { status: 302, headers });
+        return new Response(null, {
+          status: 302,
+          headers,
+        });
       }
 
       const isLoggedIn = !!auth?.user;
@@ -148,16 +124,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         "/sign-up",
         "/storesignin",
         "/storesignup",
+        "/langchain-chat/share",
       ];
-
-      // 🔒 Protect chat route
-      if (nextUrl.pathname.startsWith("/langchain-chat/chat")) {
-        if (!(auth?.user as any)?.chatAuth) {
-          const redirectUrl = new URL("/chat-login", nextUrl.origin);
-          redirectUrl.searchParams.append("callbackUrl", nextUrl.href);
-          return Response.redirect(redirectUrl);
-        }
-      }
 
       const isPublic = publicPaths.some((path) =>
         nextUrl.pathname.startsWith(path)
@@ -179,23 +147,45 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           nextUrl.pathname.startsWith(path)
         )
       ) {
+        // Check if there's a callbackUrl parameter
         const callbackUrl = nextUrl.searchParams.get("callbackUrl");
         if (callbackUrl) {
           try {
+            // Validate that the callback URL is safe (same origin or relative)
             const callback = new URL(callbackUrl);
             if (callback.origin === nextUrl.origin) {
               return Response.redirect(new URL(callbackUrl));
             }
-          } catch {}
+          } catch {
+            // If URL parsing fails, fall back to default
+          }
         }
         return Response.redirect(new URL("/role-menu", nextUrl.origin));
       }
 
       const authAllowedPaths = ["/role-menu", "/settings", "/not-authorized"];
 
+      const isAuthAllowedPaths = authAllowedPaths.some((path) =>
+        nextUrl.pathname.startsWith(path)
+      );
+      // if (
+      //   !isAuthAllowedPaths &&
+      //   !(auth?.user?.allowedPaths || []).some((path) =>
+      //     nextUrl.pathname.startsWith(path)
+      //   )
+      // ) {
+      //   if (process.env.STAGE === "dev") return true;
+      //   console.log(
+      //     "its not allwed page",
+      //     nextUrl.pathname,
+      //     "routes",
+      //     auth?.user
+      //   );
+      //   return Response.redirect(new URL("/not-authorized", nextUrl.origin));
+      // }
+
       return true;
     },
-
     jwt: ({ token, user }) => {
       if (user) {
         const u = user as unknown as any;
@@ -208,7 +198,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token;
     },
-
     session({ session, token }) {
       return {
         ...session,
@@ -220,14 +209,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       };
     },
-
     redirect({ url, baseUrl }) {
-      // After login, redirect to /role-menu if the redirect URL is the base path
-      if (url === baseUrl || url === `${baseUrl}/`) {
-        return `${baseUrl}/role-menu`;
-      }
-      // Otherwise, allow the redirect if it is within the site
-      return url.startsWith(baseUrl) ? url : baseUrl;
-    },
+  // If the user is coming from sign-in or the root, always send them to /role-menu
+  if (
+    url === baseUrl ||
+    url === `${baseUrl}/` ||
+    url.startsWith(`${baseUrl}/sign-in`)
+  ) {
+    return `${baseUrl}/role-menu`;
+  }
+
+  // Otherwise, only allow redirects within the same domain
+  return url.startsWith(baseUrl) ? url : `${baseUrl}/role-menu`;
+}
   },
+  
 });
+  
+
