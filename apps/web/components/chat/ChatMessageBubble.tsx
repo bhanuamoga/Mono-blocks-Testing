@@ -174,21 +174,7 @@ export const ChatMessageBubble = React.memo(function ChatMessageBubble(
     toast.success("Message Copied Successfully");
   };
 
-  // if (loading && message.role === "assistant") {
-  //   return (
-  //     <div className="mb-8 flex flex-col items-start">
-  //       <div className="mb-1 w-10 h-10 rounded-full flex items-center justify-center text-muted-foreground">
-  //         {props.aiEmoji}
-  //       </div>
-  //       <div className="rounded-[24px] px-4 py-2 md:max-w-[80%] max-w-[95%] text-muted-foreground">
-  //         <p className="flex items-center gap-2.5">
-  //           <Loader className="animate-spin h-4 w-4" /> Generating Response...
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
+ 
   return (
     <div
       className={cn(

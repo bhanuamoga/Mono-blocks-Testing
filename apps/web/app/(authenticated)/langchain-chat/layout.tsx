@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-// import MenuActions from "./_components/MenuActions";
 
 export default async function AuthenticatedLayout({
   children,

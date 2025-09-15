@@ -39,4 +39,5 @@ export interface appSessionUser {
   business_state: string | null;
   business_postcode: string | null;
   business_country: string | null;
+   app_name?: string | null;
 }

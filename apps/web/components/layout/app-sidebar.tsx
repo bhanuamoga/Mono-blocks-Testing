@@ -36,7 +36,7 @@ export function AppSidebar({
                 {session?.user?.business_name}
               </span>
               <span className="truncate text-xs">
-                {session?.user?.app_name}
+                {session?.user?.app_name ?? "My Apps"}
               </span>
             </div>
           </SidebarMenuButton>

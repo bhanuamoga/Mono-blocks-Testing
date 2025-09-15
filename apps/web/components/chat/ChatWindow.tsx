@@ -137,6 +137,7 @@ export function ChatWindow(props: {
   showIntermediateStepsToggle?: boolean;
   chatId?: string;
   shareId?: string;
+   emptyStateComponent?: React.ReactNode;
 }) {
   const [showIntermediateSteps, setShowIntermediateSteps] = useState(
     !!props.showIntermediateStepsToggle
@@ -278,24 +279,7 @@ export function ChatWindow(props: {
     await fetchChatBookMarks();
   };
 
-  // useEffect(() => {
-  //   const saveLogs = async () => {
-  //     try {
-  //       await saveUserLogs({
-  //         status: "Success",
-  //         description: "Langchain-Chat Page viewed",
-  //         event_type: "Langchain-Chat Page viewed",
-  //         browser: getCurrentBrowser(),
-  //         device: getUserOS(),
-  //         geo_location: await getUserLocation(),
-  //         operating_system: getUserOS(),
-  //       });
-  //     } catch (error) {
-  //       throw error;
-  //     }
-  //   };
-  //   saveLogs();
-  // }, []);
+
 
   const { data: session } = useSession();
 
@@ -340,28 +324,7 @@ export function ChatWindow(props: {
                 : uuidv4();
           }
 
-          // Fetch usage data separately
-          // let usageData = null;
-          // try {
-          //   const usageResponse = await fetch(`${props.endpoint}/usage`, {
-          //     method: "POST",
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //     },
-          //     body: JSON.stringify({
-          //       messages: chatRef.current?.messages || [],
-          //       language: selectedLanguage,
-          //       aiModel: selectedAIModel,
-          //     }),
-          //   });
-
-          //   if (usageResponse.ok) {
-          //     const usageResult = await usageResponse.json();
-          //     usageData = usageResult.usage;
-          //   }
-          // } catch (error) {
-          //   console.warn("Failed to fetch usage data:", error);
-          // }
+        
 
           // Save the original message content to the database
           await saveMessage({
@@ -386,17 +349,7 @@ export function ChatWindow(props: {
         } catch (error) {
           console.error("Failed to save assistant message:", error);
           toast.error("Failed to save assistant message");
-          // await saveUserLogs({
-          //   status: "failure",
-          //   description: "Assistant message failed to save",
-          //   event_type: "Assistant message save failed",
-          //   browser: getCurrentBrowser(),
-          //   device: getUserOS(),
-          //   geo_location: await getUserLocation(),
-          //   operating_system: getUserOS(),
-          //   response_error: true,
-          //   error_message: error,
-          // });
+        
         }
       }
     },
@@ -748,8 +701,11 @@ export function ChatWindow(props: {
         // Create new chat for the user
         chatId = await createNewChatAndRedirect(userMessage);
         setCurrentChatId(chatId);
-
-        // Copy all shared messages to the new chat
+        if (!chatId) {
+          toast.error("Chat ID is undefined, cannot copy shared messages");
+          return;
+        }
+                // Copy all shared messages to the new chat
         const copiedMessages = await copySharedMessagesToNewChat(chatId);
 
         // Update the UI with copied messages
@@ -778,6 +734,11 @@ export function ChatWindow(props: {
 
     // Save user message
     const userMessageId = uuidv4();
+    if (!chatId) {
+      toast.error("Chat ID is undefined, cannot save user message");
+      return;
+    }
+
     await saveUserMessage(chatId, userMessageId, userMessage);
 
     // Force scroll to bottom when user sends a message
@@ -1138,16 +1099,7 @@ export function ChatWindow(props: {
                       <span>Settings</span>
                     </div>
                   </DropdownMenuItem>
-                  {/* <DropdownMenuItem>
-                    <div
-                      className="flex items-center gap-2 cursor-pointer"
-                      onClick={() => signOut({ callbackUrl: "/chat-login" })}
-                    >
-                      <LogOut className="w-5 h-5 text-muted-foreground" />
-                      <span>Sign Out</span>
-                    </div>
-                  </DropdownMenuItem> */}
-
+                  
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>

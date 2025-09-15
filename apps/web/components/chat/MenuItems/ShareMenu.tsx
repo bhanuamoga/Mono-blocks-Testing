@@ -59,43 +59,11 @@ const ShareMenu = ({
   table,
 }: {
   data: TableDataProps;
-  table: TableProps;
+  table: TableProps | null;
 }) => {
-  // const handleDownload = async (fileType: string) => {
-  //   try {
-  //     const payload = {
-  //       fileType: fileType,
-  //       data: data,
-  //       table: table,
-  //     };
-  //     const response = await fetch("/api/chat/file", {
-  //       method: "POST",
-  //       body: JSON.stringify(payload),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     console.log("respnonse----", response);
-  //     if (!response.ok) {
-  //       toast.error("Error downloading file");
-  //       return;
-  //     }
-  //     const blob = await response.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     const title = data?.title || "Untitled";
-  //     link.href = url;
-  //     link.setAttribute("download", `${title}.${fileType}`);
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     link.remove();
-  //     window.URL.revokeObjectURL(url);
-  //     toast.success("File downloaded");
-  //   } catch (error) {
-  //     toast.error(`Error ${error}`);
-  //     throw error;
-  //   }
-  // };
+  if (!table) {
+    return null; 
+  }
   return (
     <div>
       <DropdownMenu>

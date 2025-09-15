@@ -14,10 +14,7 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   fixed?: boolean;
   ref?: React.Ref<HTMLElement>;
 
-  /**
-   * Component to render at the end
-   * This will be rendered on the right side of header.
-   */
+  
   endContent?: React.ReactNode;
 }
 
