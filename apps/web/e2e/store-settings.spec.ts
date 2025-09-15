@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 
 test("View AI Settings Form", async ({ page }) => {
   await page.goto("http://localhost:3000/sign-in");

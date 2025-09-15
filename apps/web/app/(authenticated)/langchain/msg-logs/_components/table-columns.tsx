@@ -1,31 +1,15 @@
 "use client";
 
-import { ContactStatus, contactStatuses, Message } from "../type";
+import { Message } from "../type";
 import type { DataTableRowAction } from "@/types";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Ellipsis } from "lucide-react";
 import * as React from "react";
-import { toast } from "sonner";
 
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import { quickUpdateRecord } from "../_lib/actions";
-import { getStatusIcon } from "../_lib/utils";
+
+
 import { formatDate } from "@/lib/utils";
 
 interface GetColumnsProps {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { Card, CardContent, CardDescription, CardTitle } from "../../ui/card";
+import { Card, CardContent } from "../../ui/card";
 
 import RenderTable from "./RenderTable";
 import { ChartRenderer } from "./ChartRender";

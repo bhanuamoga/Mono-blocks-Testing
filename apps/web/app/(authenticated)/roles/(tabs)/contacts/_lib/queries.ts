@@ -5,7 +5,7 @@ import { filterSupabase } from "@/lib/filter-columns";
 import { contactStatuses } from "../type";
 
 function applyFilters(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   query: any,
   input: GetContactsSchema,
   advancedTable: boolean

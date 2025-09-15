@@ -1,6 +1,6 @@
 "use client";
 
-import { contactStatuses, type Message } from "../type";
+import { type Message } from "../type";
 import type {
   DataTableAdvancedFilterField,
   DataTableFilterField,
@@ -13,21 +13,16 @@ import { DataTable } from "@/components/data-table/data-table";
 import { DataTableAdvancedToolbar } from "@/components/data-table/data-table-advanced-toolbar";
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { useDataTable } from "@/hooks/use-data-table";
-import { toSentenceCase } from "@/lib/utils";
 
-import type { getDocumentCountByField, getRecords } from "../_lib/queries";
-import { getStatusIcon } from "../_lib/utils";
-import { DeleteRecordsDialog } from "./delete-dialog";
+import type { getRecords } from "../_lib/queries";
 import { useFeatureFlags } from "./feature-flags-provider";
 import { getColumns } from "./table-columns";
 import { RecordsTableFloatingBar } from "./table-floating-bar";
 import { RecordsTableToolbarActions } from "./table-toolbar-actions";
 // import { UpdateRecordSheet } from "./update-sheet";
-import { Button } from "@/components/ui/button";
-import { Row, Table } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
 import { CardsView } from "./view-cards";
-import { Plus } from "lucide-react";
 import { SearchInput } from "@/components/data-table/search-input";
 
 interface ContactsTableProps {

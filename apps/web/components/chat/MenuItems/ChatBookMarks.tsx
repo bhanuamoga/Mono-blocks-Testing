@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/utils";
-import { Bookmark, LoaderCircle, Star, Trash } from "lucide-react";
+import { Bookmark, LoaderCircle, Trash } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import {
-  deleteChat,
-  getChatBookMarks,
   removeBookmark,
 } from "@/app/(authenticated)/langchain-chat/lib/actions";
 

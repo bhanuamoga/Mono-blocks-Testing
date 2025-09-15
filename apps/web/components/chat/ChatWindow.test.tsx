@@ -16,7 +16,6 @@ jest.mock("use-stick-to-bottom", () => ({
 }));
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { ChatWindow } from "./ChatWindow";
 import { toast } from "sonner";
 // const {

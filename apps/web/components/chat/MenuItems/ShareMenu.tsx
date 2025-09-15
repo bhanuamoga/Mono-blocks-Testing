@@ -20,7 +20,6 @@ import {
   Sheet,
 } from "lucide-react";
 import React from "react";
-import { toast } from "sonner";
 
 export interface TableDataProps {
   title: string;

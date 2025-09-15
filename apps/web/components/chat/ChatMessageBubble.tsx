@@ -1,19 +1,14 @@
 //Chat Message Bubble
 
 import {
-  getChatBookMarks,
   getMessageById,
   getMessagesByPromptUuid,
-  updateMessageStatus,
 } from "@/app/(authenticated)/langchain-chat/lib/actions";
 import { cn } from "@/utils/cn";
 import {
   AlarmClockCheck,
-  Bookmark,
   Copy,
-  Ellipsis,
   Heart,
-  Loader,
   Star,
 } from "lucide-react";
 import React, { useState, useEffect } from "react";

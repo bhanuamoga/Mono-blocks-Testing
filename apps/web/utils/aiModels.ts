@@ -7,6 +7,11 @@ import {
   openAiNativeModels,
   mistralModels,
   mistralDefaultModelId,
+  deepSeekDefaultModelId,
+  deepSeekModels,
+  groqDefaultModelId,
+  groqModels
+
 } from "@/data/models";
 
 export const PROVIDER_MODELS: Record<
@@ -17,4 +22,6 @@ export const PROVIDER_MODELS: Record<
   openai: { models: openAiNativeModels, default: openAiNativeDefaultModelId },
   anthropic: { models: anthropicModels, default: anthropicDefaultModelId },
   mistral: { models: mistralModels, default: mistralDefaultModelId },
+  deepseek: { models: deepSeekModels, default: deepSeekDefaultModelId },
+  grok: { models: groqModels, default: groqDefaultModelId },
 };

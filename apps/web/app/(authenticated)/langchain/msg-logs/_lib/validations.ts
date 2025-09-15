@@ -1,4 +1,4 @@
-import { type Contact, contactStatuses, Message } from "../type";
+import { contactStatuses, Message } from "../type";
 import {
   createSearchParamsCache,
   parseAsArrayOf,

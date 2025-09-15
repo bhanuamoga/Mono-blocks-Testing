@@ -6,7 +6,6 @@ import { ThemeSwitch } from "@/components/theme-switch";
 
 import { NavUser } from "@/components/layout/nav-user";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 export default async function AuthenticatedLayout({

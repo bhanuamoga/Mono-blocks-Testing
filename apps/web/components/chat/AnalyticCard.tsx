@@ -2,17 +2,9 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableHeader,
-  TableCell,
-} from "../ui/table";
+
+
 import { ChartRenderer } from "./ChartRenderer";
-import { Button } from "../ui/button";
-import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import RenderTable from "./RenderTable";
 
 type RawChartData = {

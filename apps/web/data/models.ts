@@ -397,7 +397,6 @@ export const anthropicModels = {
     maxTokens: 8192,
     contextWindow: 200_000,
     supportsImages: true,
-
     supportsPromptCache: true,
     inputPrice: 3.0,
     outputPrice: 15.0,
@@ -451,7 +450,7 @@ export type MistralModelId = keyof typeof mistralModels;
 export const mistralDefaultModelId: MistralModelId = "mistral-large-latest";
 export const mistralModels = {
   "mistral-large-latest": {
-    maxTokens: 4096,
+    maxTokens:500,
     contextWindow: 200_000,
     supportsImages: true,
     supportsPromptCache: true,
@@ -461,3 +460,42 @@ export const mistralModels = {
     cacheReadsPrice: 0.03,
   },
 };
+export type GroqModelId = keyof typeof groqModels;
+export const groqDefaultModelId: GroqModelId = "llama-3.3-70b-versatile";
+
+export const groqModels = {
+  "llama-3.3-70b-versatile": {
+    maxTokens: 256_000,          // adjust based on Groq model specs
+    contextWindow: 256_000,      // adjust if different
+    supportsImages: false,
+    supportsPromptCache: false,
+    inputPrice: 0,               // optional, Groq pricing may not apply here
+    outputPrice: 0,              // optional
+    description: "Groq LLaMA-3.3 70B versatile model",
+  },
+  "llama-3.3-70b-code": {
+    maxTokens: 256_000,
+    contextWindow: 256_000,
+    supportsImages: false,
+    supportsPromptCache: false,
+    inputPrice: 0,
+    outputPrice: 0,
+    description: "Groq LLaMA-3.3 70B optimized for coding tasks",
+  },
+} as const satisfies Record<string, ModelInfo>;
+
+export type DeepSeekModelId = keyof typeof deepSeekModels;
+export const deepSeekDefaultModelId: DeepSeekModelId = "deepseek-chat";
+
+export const deepSeekModels = {
+  "deepseek-chat": {
+    maxTokens:528,
+    contextWindow: 128_000,
+    supportsImages: false,
+    supportsPromptCache: true,
+    inputPrice: 0.56,       // cache miss
+    outputPrice: 1.68,
+    cacheReadsPrice: 0.07,  // cache hit reading
+    description: "DeepSeek Chat model (128k context)",
+  }
+} as const satisfies Record<string, ModelInfo>;

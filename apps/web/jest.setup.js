@@ -2,13 +2,11 @@ import "@testing-library/jest-dom";
 
 // Polyfills for Node.js environment
 import { TextEncoder, TextDecoder } from "util";
-import { Readable } from "stream";
 // Removed 'text-encoding' polyfill. Node.js util provides TextEncoder/TextDecoder.
 import "@testing-library/jest-dom";
 
 // Polyfills for Node.js environment
 import { TextEncoder, TextDecoder } from "util";
-import { Readable } from "stream";
 
 // Set global TextEncoder/TextDecoder using Node.js util
 global.TextEncoder = TextEncoder;

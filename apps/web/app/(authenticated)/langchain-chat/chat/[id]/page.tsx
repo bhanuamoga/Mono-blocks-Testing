@@ -1,5 +1,4 @@
 import { ChatWindow } from "@/components/chat/ChatWindow";
-import { GuideInfoBox } from "@/components/chat/GuideInfoBox";
 
 interface IndexProps {
   params: Promise<{ id: string }>;

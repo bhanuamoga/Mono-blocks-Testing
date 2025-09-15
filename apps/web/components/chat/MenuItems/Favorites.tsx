@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +7,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/utils";
-import { Heart, LoaderCircle, Star, Trash } from "lucide-react";
-import Link from "next/link";
+import { Heart, LoaderCircle, Trash } from "lucide-react";
 import { toast } from "sonner";
 import {
-  deleteChat,
-  getChatFavorites,
   removeFavorite,
 } from "@/app/(authenticated)/langchain-chat/lib/actions";
 import React from "react";

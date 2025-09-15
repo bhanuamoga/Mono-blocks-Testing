@@ -4,7 +4,7 @@ import type { Filter, JoinOperator } from "@/types";
 export type SupabaseFilter = {
   column: string;
   operator: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   value: any;
 };
 

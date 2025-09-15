@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 // import MenuActions from "./_components/MenuActions";
-import { History } from "lucide-react";
 
 export default async function AuthenticatedLayout({
   children,

@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDate } from "@/lib/utils";
-import { Star, Trash } from "lucide-react";
+import { Star } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { deleteChat, getChatFavorites } from "../lib/actions";

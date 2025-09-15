@@ -5,7 +5,7 @@ import { filterSupabase } from "@/lib/filter-columns";
 import { pageListStatuses } from "../type";
 
 function applyFilters(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   query: any,
   input: GetPageListsSchema,
   advancedTable: boolean

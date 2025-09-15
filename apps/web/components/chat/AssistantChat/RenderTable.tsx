@@ -12,8 +12,6 @@ import { Button } from "../../ui/button";
 import {
   ChevronsLeft,
   ChevronsRight,
-  Download,
-  FileSpreadsheet,
 } from "lucide-react";
 
 const RenderTable = ({

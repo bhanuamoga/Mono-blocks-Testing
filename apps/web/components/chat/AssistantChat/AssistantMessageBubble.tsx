@@ -1,29 +1,19 @@
 //Chat Message Bubble
 
-import { getChatBookMarks } from "@/app/(authenticated)/langchain-chat/lib/actions";
 import { cn } from "@/utils/cn";
 import {
   AlarmClockCheck,
   Bookmark,
   Copy,
-  Ellipsis,
-  Heart,
   Star,
 } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { ChartRenderer } from "../ChartRenderer";
 
-import ShareMenu from "../MenuItems/ShareMenu";
-import RenderTable from "../RenderTable";
-import AnalyticCardFileApi from "../AnalyticCardFileApi/AnalyticCardFileApi";
 import ShareFileMenu from "./MenuItems/ShareMenu";
 import AnalyticCard from "./AnalyticCard";
 import { AssistantData, ChartData, Query } from "../types/types";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useSession } from "next-auth/react";
 
 type Message = {

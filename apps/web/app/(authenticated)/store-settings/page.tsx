@@ -31,16 +31,8 @@ import {
 import { ShopifyForm } from "./_components/ShopifyForm";
 import { WooCommerceForm } from "./_components/WooCommerceForm";
 import { BusinessSettingsForm } from "./_components/BusinessSettingsForm";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+
+
 import AISettings from "./_components/AISettings";
 
 type Platform = "woocommerce" | "shopify";

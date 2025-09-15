@@ -12,11 +12,7 @@ import { Button } from "../ui/button";
 import {
   ChevronsLeft,
   ChevronsRight,
-  Download,
-  FileSpreadsheet,
 } from "lucide-react";
-import { generateCsv } from "@/utils/generateCsv";
-import { Badge } from "../ui/badge";
 
 interface TableProps {
   headers: string[];

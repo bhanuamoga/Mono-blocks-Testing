@@ -1,18 +1,11 @@
 import { cn } from "@/utils/cn";
-import React, { FormEvent, ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 import {
   ArrowUp,
-  Bot,
-  FileJson,
-  Globe,
   LoaderCircle,
-  MessageCircle,
-  Settings2,
 } from "lucide-react";
-import Link from "next/link";
 import { Button } from "../../ui/button";
-import { Query } from "../types/types";
 
 export function AssistantInput(props: {
   onSubmit: () => Promise<void>;

@@ -95,7 +95,7 @@ export const register = async (
     // ✅ Step 1: validate user input
     const validatedData = authRegisterFormSchema.parse(formData);
 
-    // ✅ Step 2: build DB payload (validation + DB fields)
+    
     const insertPayload = {
       ...validatedData,
       for_business_name: validatedData.business_name ?? null,
@@ -103,7 +103,7 @@ export const register = async (
       roles_json: ["growstoreassistant"], // default role
     };
 
-    // ✅ Step 3: check if user exists
+   
     const { data: user } = await postgrest
       .asAdmin()
       .from("user_catalog")

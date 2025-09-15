@@ -4,7 +4,7 @@ import { Archive, Search, Trash2 } from "lucide-react";
 import React, { useEffect, useMemo } from "react";
 import { NotificationType } from "../types";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatDistanceToNow, set } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { archieveNotification, getNotifications } from "../lib/queries";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";

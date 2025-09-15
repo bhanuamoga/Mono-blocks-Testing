@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const provider = aiModel?.provider;
     let providerModel;
 
-    if (["google", "openai", "mistral"].includes(provider)) {
+    if (["google", "openai", "mistral","deepseek","grok","claude"].includes(provider)) {
       providerModel = aiModel?.model;
     }
 
@@ -199,6 +199,7 @@ export async function POST(req: NextRequest) {
       grok: new ChatGroq({
         model: "llama-3.3-70b-versatile",
         temperature: 0,
+        apiKey: aiModel?.key,
       }),
       mistral: new ChatMistralAI({
         model: providerModel,
@@ -206,12 +207,14 @@ export async function POST(req: NextRequest) {
         apiKey: aiModel?.key,
       }),
       claude: new ChatAnthropic({
-        model: "claude-3-5-sonnet-20240620",
-        temperature: 0,
+        model: "claude-3-7-sonnet-20250219",
+        temperature: 0.8,
+        apiKey: aiModel?.key,
       }),
       deepseek: new ChatDeepSeek({
-        model: "deepseek-reasoner",
-        temperature: 0,
+        model: "deepseek-chat",
+        temperature: 0.8,
+         apiKey: aiModel?.key,
       }),
     };
 

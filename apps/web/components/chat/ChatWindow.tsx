@@ -5,32 +5,21 @@
 // import { type Message } from "ai";
 import { useChat } from "ai/react";
 import { useEffect, useRef, useState, useCallback } from "react";
-import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { toast } from "sonner";
-import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { useStickToBottomContext } from "use-stick-to-bottom";
+import { usePathname, useRouter } from "next/navigation";
 
-import { ChatMessageBubble } from "@/components/chat/ChatMessageBubble";
-import { IntermediateStep } from "./IntermediateStep";
 import { Button } from "../ui/button";
 import {
   ArrowDown,
-  ArrowUp,
-  Bot,
   Coins,
   Ellipsis,
-  FileJson,
-  Globe,
-  HandHelping,
   LoaderCircle,
   Logs,
-  MessageCircle,
   Paperclip,
   Plus,
-  Settings,
-  Settings2,
-  LogOut
+  Settings
 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { UploadDocumentsForm } from "./UploadDocumentsForm";
@@ -66,16 +55,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import Link from "next/link";
 // import { saveUserLogs } from "@/utils/userLogs";
-import getCurrentBrowser from "@/utils/getCurrentBrowser";
-import getUserOS from "@/utils/getCurrentOS";
-import getUserLocation from "@/utils/geoLocation";
 import { ChatInput } from "./ChatInput";
 
-import { ChatLayout } from "./ChatLayout";
 import History from "./MenuItems/History";
-import BookMark from "./MenuItems/Important";
 import Favorites from "./MenuItems/Favorites";
 import { ChatMessages } from "./ChatMessages";
 import SuggestedPrompts from "./MenuItems/SuggestedPrompts";
@@ -87,7 +70,6 @@ import ChatBookMarks from "./MenuItems/ChatBookMarks";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSession } from "next-auth/react";
 import ScheduledPrompts from "./MenuItems/ScheduledPrompts";
-import { postgrest } from "@/lib/postgrest";
 
 type Message = {
   id: string;

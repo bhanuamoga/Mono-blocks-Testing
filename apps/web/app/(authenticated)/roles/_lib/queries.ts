@@ -5,7 +5,7 @@ import { filterSupabase } from "@/lib/filter-columns";
 import { roleListStatuses } from "../type";
 
 function applyFilters(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   query: any,
   input: GetRoleListsSchema,
   advancedTable: boolean

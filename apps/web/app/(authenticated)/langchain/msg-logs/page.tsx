@@ -7,7 +7,7 @@ import { getValidFilters } from "@/lib/data-table";
 
 import { FeatureFlagsProvider } from "./_components/feature-flags-provider";
 import { ContactsTable } from "./_components/table";
-import { getDocumentCountByField, getRecords } from "./_lib/queries";
+import { getRecords } from "./_lib/queries";
 import { searchParamsCache } from "./_lib/validations";
 import { Metadata } from "next";
 

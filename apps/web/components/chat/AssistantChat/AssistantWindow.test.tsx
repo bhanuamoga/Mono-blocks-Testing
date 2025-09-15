@@ -19,7 +19,6 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { toast } from "sonner";
-import { v4 as uuidv4 } from "uuid";
 import { AssistantWindow } from "./AssistantWindow";
 import * as actionsImport from "@/app/(authenticated)/langchain-chat/lib/actions";
 import { saveUserLogs as saveUserLogsImport } from "@/utils/userLogs";

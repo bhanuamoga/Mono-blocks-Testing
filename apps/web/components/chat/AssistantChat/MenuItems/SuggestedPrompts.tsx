@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { HelpingHand } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const SuggestedPrompts = () => {
   return (

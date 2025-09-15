@@ -1,9 +1,7 @@
 "use client";
 import {
-  BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
   Menu,
   User,
 } from "lucide-react";

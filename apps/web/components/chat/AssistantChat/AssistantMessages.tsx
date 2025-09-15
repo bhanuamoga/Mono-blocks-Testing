@@ -1,7 +1,6 @@
-import React, { ReactNode, useCallback, useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { AssistantMessageBubble } from "./AssistantMessageBubble";
 import { AssistantData, ChartData, Query } from "../types/types";
-import { Button } from "@/components/ui/button";
 import { useChatStore } from "./useStore";
 
 type Message = {

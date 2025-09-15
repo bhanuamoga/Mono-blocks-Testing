@@ -146,6 +146,13 @@ export async function createNewChatSession() {
   }
 }
 
+
+
+
+
+
+
+
 export async function saveMessage(payload) {
   try {
     const { data, error } = await postgrest

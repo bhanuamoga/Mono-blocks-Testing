@@ -6,11 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { formatDate } from "@/lib/utils";
-import { Heart, LoaderCircle, MessageCircleMore, Trash } from "lucide-react";
+import { LoaderCircle, MessageCircleMore, Trash } from "lucide-react";
 
-import { toast } from "sonner";
-import { removeFavorite } from "@/app/(authenticated)/langchain-chat/lib/actions";
 import React from "react";
 
 interface Prompt {

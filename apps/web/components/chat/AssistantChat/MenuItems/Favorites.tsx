@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +12,6 @@ import Link from "next/link";
 import { toast } from "sonner";
 import {
   deleteChat,
-  getChatFavorites,
 } from "@/app/(authenticated)/langchain-chat/lib/actions";
 import React from "react";
 

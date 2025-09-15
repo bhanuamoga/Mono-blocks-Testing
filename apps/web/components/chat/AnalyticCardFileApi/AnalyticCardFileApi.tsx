@@ -8,17 +8,9 @@ import {
   CardFooter,
   CardTitle,
 } from "../../ui/card";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableHeader,
-  TableCell,
-} from "../../ui/table";
 
-import { Button } from "../../ui/button";
-import { ChevronsLeft, ChevronsRight } from "lucide-react";
+
+
 import RenderTable from "./RenderTable";
 import { ChartRenderer } from "./ChartRender";
 

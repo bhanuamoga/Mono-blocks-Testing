@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { useCallback } from "react";
 import { ChatMessageBubble } from "./ChatMessageBubble";
 import { IntermediateStep } from "./IntermediateStep";
 

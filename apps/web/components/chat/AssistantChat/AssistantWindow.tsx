@@ -1,31 +1,19 @@
 "use client";
-import { useChat } from "ai/react";
 import { useEffect, useState } from "react";
-import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
+import type { ReactNode } from "react";
 import { toast } from "sonner";
-import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
+import { useStickToBottomContext } from "use-stick-to-bottom";
 
-import { ChatMessageBubble } from "@/components/chat/ChatMessageBubble";
-import { IntermediateStep } from "../IntermediateStep";
 import { Button } from "../../ui/button";
 import {
   ArrowDown,
-  ArrowUp,
-  Bot,
   Coins,
   Ellipsis,
-  FileJson,
-  Globe,
-  HandHelping,
-  LoaderCircle,
   Logs,
-  MessageCircle,
   Paperclip,
   Plus,
   Settings,
-  Settings2,
 } from "lucide-react";
-import { Checkbox } from "../../ui/checkbox";
 import { UploadDocumentsForm } from "../UploadDocumentsForm";
 import {
   Dialog,
@@ -61,14 +49,12 @@ import getCurrentBrowser from "@/utils/getCurrentBrowser";
 import getUserOS from "@/utils/getCurrentOS";
 import getUserLocation from "@/utils/geoLocation";
 import { AssistantInput } from "./AssistantInput";
-import { ChatLayout } from "../ChatLayout";
 import History from "./MenuItems/History";
 import BookMark from "./MenuItems/Bookmark";
 import Favorites from "./MenuItems/Favorites";
-import { ChatMessages } from "../ChatMessages";
 import SuggestedPrompts from "../MenuItems/SuggestedPrompts";
 import Assistants from "../MenuItems/Assistants";
-import { AssistantData, ChartData, Content, Query } from "../types/types";
+import { AssistantData, ChartData, Query } from "../types/types";
 import { AssistantMessages } from "./AssistantMessages";
 import { AssistantLayout } from "./AssistantLayout";
 import { useSession } from "next-auth/react";
