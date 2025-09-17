@@ -27,7 +27,7 @@ export async function saveUserLogs(payload) {
   };
   try {
     const { data, error } = await postgrest
-      .from("user_log")
+      .from("user_log" as any)
       .insert(payloadData);
     if (error) throw error;
     return { data, success: true };
